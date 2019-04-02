@@ -31,9 +31,10 @@ class CompressFiles(QtWidgets.QMainWindow, Ui_MainWindow):
         :return:
         '''
 
-        # 判断待压缩文件类型: jsFileKind->js文件; cssFIleKind->css文件；
+        # 判断待压缩文件类型: jsFileKind->js文件; cssFIleKind->css文件； spriteKind->image文件
         jsFileKind = self.jsRadio.isChecked()
         cssFileKind = self.cssRadio.isChecked()
+        spriteKind = self.spriteRadio.isChecked()
 
         # 判断是压缩单文件还是文件目录（多文件）: true->单文件；false->文件目录（多文件）
         fileOrDir = self.fileRadio.isChecked()
@@ -49,6 +50,9 @@ class CompressFiles(QtWidgets.QMainWindow, Ui_MainWindow):
             elif cssFileKind:
                 fileStyle = '*.css'
                 self.fileKind = 'css'
+            elif spriteKind:
+                fileStyle = '*.png'
+                self.fileKind = 'png'
             else:
                 fileStyle = '*.html'
                 self.fileKind = 'html'
@@ -66,8 +70,10 @@ class CompressFiles(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             if self.jsRadio.isChecked():
                 self.fileKind = 'js'
-            else:
+            elif self.cssRadio.isChecked():
                 self.fileKind = 'css'
+            elif self.spriteRadio.isChecked():
+                self.fileKind = 'png'
             fileInfo = QFileDialog.getExistingDirectoryUrl(self)
             dirUrl = fileInfo.toString()
             if dirUrl == '':
@@ -90,6 +96,17 @@ class CompressFiles(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.jsRadio.isChecked() or self.cssRadio.isChecked():
             self.dirUrl = ''
             self.fileUrl = ''
+        if self.spriteRadio.isChecked():
+            self.dirUrl = ''
+            self.fileUrl = ''
+            self.fileRadio.setDisabled(True)
+            self.dirRadio.setChecked(True)
+            self.dirRadio.setDisabled(True)
+        else:
+            self.fileRadio.setDisabled(False)
+            self.fileRadio.setChecked(True)
+            self.dirRadio.setChecked(False)
+            self.dirRadio.setDisabled(False)
         if self.fileRadio.isChecked():
             self.dirUrl = ''
         if self.dirRadio.isChecked():
@@ -138,7 +155,10 @@ class CompressFiles(QtWidgets.QMainWindow, Ui_MainWindow):
                 self._compressOrder('gulp prodSingleCss')
             elif self.dirUrl != '':
                 self._compressOrder('gulp prodMultyCss')
-
+        elif self.fileKind == 'png':
+            if self.dirUrl != '':
+                # self._compressOrder('gulp prodPngs')
+                self._compressOrder('gulp prodCompressImgs')
     def _compressOrder(self, orderStr):
         '''
         gulp 执行命令封装
@@ -162,6 +182,7 @@ class CompressFiles(QtWidgets.QMainWindow, Ui_MainWindow):
         '''
         self.jsRadio.setDisabled(isTure)
         self.cssRadio.setDisabled(isTure)
+        self.spriteRadio.setDisabled(isTure)
         self.fileRadio.setDisabled(isTure)
         self.dirRadio.setDisabled(isTure)
         self.choiseFileDirBtn.setDisabled(isTure)

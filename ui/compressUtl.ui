@@ -50,9 +50,12 @@
      <string/>
     </property>
     <widget class="QRadioButton" name="jsRadio">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
-       <x>250</x>
+       <x>150</x>
        <y>10</y>
        <width>100</width>
        <height>31</height>
@@ -76,7 +79,7 @@
     <widget class="QRadioButton" name="cssRadio">
      <property name="geometry">
       <rect>
-       <x>750</x>
+       <x>450</x>
        <y>20</y>
        <width>100</width>
        <height>16</height>
@@ -92,6 +95,24 @@
      </property>
      <property name="text">
       <string>Css</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="spriteRadio">
+     <property name="geometry">
+      <rect>
+       <x>750</x>
+       <y>14</y>
+       <width>100</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>sprite</string>
      </property>
     </widget>
    </widget>
@@ -298,6 +319,9 @@
     </property>
    </widget>
    <widget class="QTextEdit" name="outputDirInput">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>195</x>
