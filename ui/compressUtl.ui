@@ -112,7 +112,7 @@
       </font>
      </property>
      <property name="text">
-      <string>sprite</string>
+      <string>image</string>
      </property>
     </widget>
    </widget>
